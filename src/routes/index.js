@@ -14,8 +14,8 @@ class Routes extends React.Component {
     return (
       <HashRouter>
         <Switch>
-          {/* <PublicRoute exact path="/" component={FortuneTeller} />
-          <PublicRoute path="/fortune-teller/:id" component={FortuneTellerDetail} /> */}
+          {/* <PublicRoute exact path="/" component={FortuneTeller} /> */}
+          {/* <PublicRoute path="/fortune-teller/:id" component={FortuneTellerDetail} /> */}
           <PublicRoute path="*" component={NotFound} />
         </Switch>
       </HashRouter>
