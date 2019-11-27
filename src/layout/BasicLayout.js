@@ -14,7 +14,7 @@ class BasicLayout extends Component {
           <Headers />
         </Header>
         <Content className="content">
-          <Row type="flex" justify="center" align='middle' className='main'>
+          <Row type="flex" justify="center"className='main'>
             <Col span={18}>{children}</Col>
           </Row>
         </Content>
