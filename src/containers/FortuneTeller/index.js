@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-
-class index extends Component {
+import React, { Component } from "react";
+import "antd/dist/antd.css";
+import { Row, Col} from "antd";
+import Carousels from '../../components/Carousel/Carousels';
+class FortuneTeller extends Component {
   render() {
     return (
-      <div>
-        
-      </div>
+        <Carousels />
     );
   }
 }
 
-export default index;
+export default FortuneTeller;

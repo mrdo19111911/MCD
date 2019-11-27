@@ -5,7 +5,7 @@ import {
   HashRouter
 } from "react-router-dom";
 import PublicRoute from "./PublicRoute";
-// import FortuneTeller from "../containers/FortuneTeller";
+import FortuneTeller from "../containers/FortuneTeller";
 // import FortuneTellerDetail from '../containers/FortuneTellerDetail'
 import NotFound from "../Not Found/NotFound";
 
@@ -14,7 +14,7 @@ class Routes extends React.Component {
     return (
       <HashRouter>
         <Switch>
-          {/* <PublicRoute exact path="/" component={FortuneTeller} /> */}
+          <PublicRoute exact path="/" component={FortuneTeller}/>
           {/* <PublicRoute path="/fortune-teller/:id" component={FortuneTellerDetail} /> */}
           <PublicRoute path="*" component={NotFound} />
         </Switch>
