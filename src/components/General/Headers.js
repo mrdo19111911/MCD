@@ -43,7 +43,7 @@ class Headers extends Component {
               </Row>
               <Row type='flex'>
             <Col md={10}>
-              <Menu mode='horizontal' className="customclass">
+              <Menu mode='horizontal' className="customclass" className="headerMenu">
                 <MenuItem>
                       <Link to="/">Bói Tuổi</Link>
                 </MenuItem>
