@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-import { Row, Tabs } from "antd";
-import "antd/dist/antd.css";
+import { Row, Tabs} from "antd";
 import "./styles/index.less";
+import "antd/dist/antd.css";
+import FamousFortuneTellerMonth from "./FamousFortuneTellerMonth";
+import FamousFortuneTellerYear from "./FamousFortuneTellerYear";
+import FamousFortuneTellerAll from "./FamousFortuneTellerAll";
 class FamousFortuneTeller extends Component {
   render() {
     const { TabPane } = Tabs;
+
     return (
       <Row>
         <h3 className="famousTitle">Thầy bói đang nổi</h3>
         <Tabs>
-          <TabPane tab="Theo Tuaa" key="1">
-            Content of tab 1
+          <TabPane tab="Tháng" key="1">
+            <FamousFortuneTellerMonth />
           </TabPane>
-          <TabPane tab="Tab 2" key="2">
-            Content of tab 2
+          <TabPane tab="Năm" key="2">
+           <FamousFortuneTellerYear />
           </TabPane>
-          <TabPane tab="Tab 3" key="3">
-            Content of tab 3
+          <TabPane tab="Tất Cả" key="3">
+            <FamousFortuneTellerAll />
           </TabPane>
         </Tabs>
       </Row>

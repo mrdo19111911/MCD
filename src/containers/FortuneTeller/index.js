@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "antd/dist/antd.css";
-import { Row, Col, Menu } from "antd";
 import Carousels from "../../components/Carousel/Carousels";
 import ListSkillMenu from "../../components/Menu/ListSkillMenu";
 import FamousFortuneTeller from "./FamousFortuneTeller";

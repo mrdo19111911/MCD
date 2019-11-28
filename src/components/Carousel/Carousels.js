@@ -1,59 +1,33 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import { Carousel, Row, Col } from "antd";
+import { Carousel, Row, Col,Card} from "antd";
 import "./styles/index.less";
+import banner from '../../images/banner.jpg';
+import banner1 from '../../images/banner1.jpg';
+import banner3 from '../../images/banner3.jpg';
 class Carousels extends Component {
   render() {
     return (
       <Row>
-        <Col md={16} style={{height:'100%'}}>
-          <Carousel  className="carouselLeft">
-            <div>
-              <h3>1</h3>
-            </div>
-            <div>
-              <h3>2</h3>
-            </div>
-            <div>
-              <h3>3</h3>
-            </div>
-            <div>
-              <h3>4</h3>
-            </div>
+        <Col md={16}>
+          <Carousel   autoplaySpeed>
+          <img src={banner}/>
+          <img src={banner1} />
           </Carousel>
         </Col>
         <Col md={8} style={{paddingLeft:5}}>
-          <Row type='flex' style={{flexDirection:'column'}}>
-            <Col md={12} style={{width:'100%'}}>
+          <Row type='flex' className="slideSub">
+            <Col md={12} className="subTop">
               <Carousel autoplay effect='fade'>
-                <div>
-                  <h3>1</h3>
-                </div>
-                <div>
-                  <h3>2</h3>
-                </div>
-                <div>
-                  <h3>3</h3>
-                </div>
-                <div>
-                  <h3>4</h3>
-                </div>
+              <img src={banner1} />
+              <img src={banner1} />
+              <img src={banner1} />
               </Carousel>
             </Col>
-            <Col md={12} style={{width:'100%',paddingTop:5}}>
+            <Col md={12} className="subBottom">
               <Carousel autoplay effect='fade'>
-                <div>
-                  <h3>1</h3>
-                </div>
-                <div>
-                  <h3>2</h3>
-                </div>
-                <div>
-                  <h3>3</h3>
-                </div>
-                <div>
-                  <h3>4</h3>
-                </div>
+              <img src={banner} />
+              <img src={banner1} />
               </Carousel>
             </Col>
           </Row>

@@ -7,9 +7,7 @@ class ListSkillMenu extends Component {
   render() {
     return (
       <div style={{ background: "#fff" }}>
-        <h4 style={{ paddingLeft: 20, textAlign: "center" }}>
-          Danh mục chuyên môn của các thầy
-        </h4>
+        <h3 className="famousTitle"> Danh mục chuyên môn của các thầy</h3>
         <Menu mode="horizontal vertical-left">
           <Menu.Item>
             <Link to="/">Hầu Đồng</Link>
