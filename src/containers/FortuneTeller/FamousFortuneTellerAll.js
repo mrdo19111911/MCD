@@ -20,7 +20,7 @@ class FamousFortuneTellerAll extends Component {
             dataSource={data}
             renderItem={item => (
               <List.Item className="listItem">
-                <Card hoverable style={{ width: "100%" }} hoverable>
+                <Card hoverable style={{ width: "100%" }} className="famous">
                   {/* <h3 className="provice">Hà Nội</h3> */}
                   <Tag color="cyan" className="provice">
                     Hà Nội
@@ -89,7 +89,7 @@ class FamousFortuneTellerAll extends Component {
             dataSource={data}
             renderItem={item => (
               <List.Item className="listItem">
-                <Card hoverable style={{ width: "100%" }} hoverable>
+                <Card hoverable style={{ width: "100%" }} className="famous">
                   {/* <h3 className="provice">Hà Nội</h3> */}
                   <Tag color="cyan" className="provice">
                     Hà Nội
@@ -157,7 +157,7 @@ class FamousFortuneTellerAll extends Component {
             dataSource={data}
             renderItem={item => (
               <List.Item className="listItem">
-                <Card hoverable style={{ width: "100%" }} hoverable>
+                <Card hoverable style={{ width: "100%" }} className="famous">
                   {/* <h3 className="provice">Hà Nội</h3> */}
                   <Tag color="cyan" className="provice">
                     Hà Nội
@@ -225,7 +225,7 @@ class FamousFortuneTellerAll extends Component {
             dataSource={data}
             renderItem={item => (
               <List.Item className="listItem">
-                <Card hoverable style={{ width: "100%" }} hoverable>
+                <Card hoverable style={{ width: "100%" }} className="famous">
                   {/* <h3 className="provice">Hà Nội</h3> */}
                   <Tag color="cyan" className="provice">
                     Hà Nội
@@ -293,7 +293,7 @@ class FamousFortuneTellerAll extends Component {
             dataSource={data}
             renderItem={item => (
               <List.Item className="listItem">
-                <Card hoverable style={{ width: "100%" }} hoverable>
+                <Card hoverable style={{ width: "100%" }} className="famous">
                   {/* <h3 className="provice">Hà Nội</h3> */}
                   <Tag color="cyan" className="provice">
                     Hà Nội
@@ -361,7 +361,7 @@ class FamousFortuneTellerAll extends Component {
             dataSource={data}
             renderItem={item => (
               <List.Item className="listItem">
-                <Card hoverable style={{ width: "100%" }} hoverable>
+                <Card hoverable style={{ width: "100%" }} className="famous">
                   {/* <h3 className="provice">Hà Nội</h3> */}
                   <Tag color="cyan" className="provice">
                     Hà Nội

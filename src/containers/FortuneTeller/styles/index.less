@@ -22,12 +22,12 @@ body {
 }
 
 h2,
-h3,
-h4 {
+h3 {
   margin: 0;
-  text-align: center;
-  text-transform: capitalize;
+  text-align: left;
+  text-transform: uppercase;
   padding: 5px;
+  padding-left: 16px;
 }
 .provice{
   width: 100%;
@@ -59,9 +59,113 @@ h4 {
 .monthFamous{
   box-sizing: border-box;
 }
-.ant-card-body{
+.famous .ant-card-body{
   padding-top: 0 !important;
   padding-left: 15px !important;
   padding-right: 15px !important;
   padding-bottom: 24px !important;
+}
+// Search Trends
+.searchTrends .ant-card-body{
+  padding: 0 !important;
+  padding-top: 15px !important;
+  text-align: center;
+  .ant-card-meta-detail{
+    width: 100%;
+  }
+}
+.searchLeft{
+  text-align: center;
+  padding-top: 10px;
+  h4{
+    margin: 0;
+    padding-top: 5px;
+  }
+}
+.searchRight{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+// ListFortuneTeller
+.listLocation{
+  padding-top: 10px;
+  h2{
+    text-align: center;
+  }
+}
+.fortunLocation{
+ text-align: justify;
+ padding-left: 175px;
+ padding-top: 3px;
+ padding-bottom: 3px;
+}
+
+//News Hot
+.searchTrends{
+  h3{
+    padding: 0;
+  }
+  .subContentNew{
+    border-left: 2px solid #e8e8e8;
+   height: 203.5px;
+   overflow-y: scroll !important;
+  }
+}
+.listNew{
+  padding-left: 10px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  display: flex !important;
+  align-items: center !important;
+  h4{
+    padding-left: 10px;
+  }
+}
+.contentNew{
+  h3{
+    padding: 12px 24px;
+    border-bottom: 1px solid #e8e8e8;
+    border-left: 2px solid #e8e8e8;
+  }
+}
+.contentNewRight{
+  height: 252.5px;
+  overflow-y: scroll !important;
+
+}
+// style srcollbar contentRight
+.contentNewRight::-webkit-scrollbar{
+  width: 12px;
+  background-color: #F5F5F5;
+}
+.contentNewRight::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #f4f4f4;
+}
+.contentNewRight::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+// style srcollbar contentLeft
+.subContentNew::-webkit-scrollbar{
+  width: 12px;
+  background-color: #F5F5F5;
+}
+.subContentNew::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #f4f4f4;
+}
+.subContentNew::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
 }

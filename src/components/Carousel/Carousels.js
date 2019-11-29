@@ -10,7 +10,13 @@ class Carousels extends Component {
     return (
       <Row>
         <Col md={16}>
-          <Carousel   autoplaySpeed>
+          <Carousel>
+          <img src={banner}/>
+          <img src={banner1} />
+          <img src={banner}/>
+          <img src={banner1} />
+          <img src={banner}/>
+          <img src={banner1} />
           <img src={banner}/>
           <img src={banner1} />
           </Carousel>
@@ -18,14 +24,14 @@ class Carousels extends Component {
         <Col md={8} style={{paddingLeft:5}}>
           <Row type='flex' className="slideSub">
             <Col md={12} className="subTop">
-              <Carousel autoplay effect='fade'>
+              <Carousel autoplay effect='fade' dots='false'>
               <img src={banner1} />
               <img src={banner1} />
               <img src={banner1} />
               </Carousel>
             </Col>
             <Col md={12} className="subBottom">
-              <Carousel autoplay effect='fade'>
+              <Carousel autoplay effect='fade' dots='false'>
               <img src={banner} />
               <img src={banner1} />
               </Carousel>

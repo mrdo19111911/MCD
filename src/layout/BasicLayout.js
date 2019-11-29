@@ -19,7 +19,7 @@ class BasicLayout extends Component {
           </Row>
         </Content>
         <Footer className="layoutFooter">
-          {/* <Footers /> */}
+          <Footers />
         </Footer>
       </Layout>
     );
