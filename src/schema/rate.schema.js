@@ -5,7 +5,7 @@ export const rateSchema = Joi.object({
     user: {
         id_user: Joi.string().required(), // cần kiểm tra lại
         name: Joi.string().required(),
-        avatar: Joi.string()
+        picture: Joi.string()
     },
     content: Joi.string().required(),
     star: Joi.number().min(1).max(5).required(),

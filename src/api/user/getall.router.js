@@ -26,13 +26,11 @@ export default [
             auth: false
         },
         handler: async function(request, h) {
-
+            var pageSize = 2;
+            var key = `rates.${request.params.field}`;
             var value = (request.params.value == "good") ? -1 : 1;
             var total = await ThayboiModel.find().countDocuments();
-            const list = await ThayboiModel.aggregate([
-
-                // {$match :  {_id: mongoose.Types.ObjectId("5dc7084f926e8f4a640e9a90")}}
-                {
+            const list = await ThayboiModel.aggregate([{
                     $lookup: {
                         from: "rate",
                         localField: "_id",
@@ -41,10 +39,15 @@ export default [
                     }
 
                 },
-
                 {
                     $unwind: {
                         path: "$rate",
+                        preserveNullAndEmptyArrays: true,
+
+                    }
+                }, {
+                    $unwind: {
+                        path: "$rate.detail",
                         preserveNullAndEmptyArrays: true,
 
                     }
@@ -53,46 +56,40 @@ export default [
                     $group: {
                         _id: {
                             "_id": "$_id",
-                            "name": "$name",
-                            "address": "$address",
-                            "gender": "$gender",
-                            "avatar": "$avatar",
-                            "skill": "$skill",
-
+                            "information": "$information",
                         },
-
-                        rate: { $push: "$rate", },
-
+                        rate: { $push: "$rate.detail" },
 
                     },
-
-
                 },
 
                 {
                     $project: {
-                        "rate._id": 1,
-                        "rate.star": 1,
-                        "avgStar": { $avg: "$rate.star" },
-                        "total": { $size: "$rate" },
+                        rates: {
+                            "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
+                            "boi_bai": { "avg": { $avg: "$rate.boi_bai" }, "total": { $size: "$rate.boi_bai" } },
+                            "xem_boi": { "avg": { $avg: "$rate.xem_boi" }, "total": { $size: "$rate.xem_boi" } },
+                            "goi_hon": { "avg": { $avg: "$rate.goi_hon" }, "total": { $size: "$rate.goi_hon" } },
+                            "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } },
+                            "total": { $size: "$rate" },
+                            // "rate": 1,
+                        }
                     },
 
                 },
                 {
                     $sort: {
-                        [request.params.field]: value,
+                        [key]: value,
                         posts: 1
                     }
                 },
-                { $skip: (parseInt(request.params.page) - 1) * 2 }, // dữ liệu trả về ở get vá post là string nhưng trong tùy thành phần trong aggregate nhần string or number
-                { $limit: 2 },
+                { $skip: 0 }, // dữ liệu trả về ở get vá post là string nhưng trong tùy thành phần trong aggregate nhần string or number
+                { $limit: pageSize },
             ]).exec();
             var data = list.map(obj => {
                 var tempObj = {};
                 tempObj.thayboi = obj._id;
-                tempObj.rate = obj.rate;
-                tempObj.avgStar = obj.avgStar;
-                tempObj.total = obj.total;
+                tempObj.rate = obj.rates;
                 return tempObj
             })
 
@@ -100,8 +97,8 @@ export default [
                 error: null,
                 data: data,
                 page: parseInt(request.params.page),
-                pageSize: 2,
-                totalPage: Math.ceil(total / 2)
+                pageSize: pageSize,
+                totalPage: Math.ceil(total / pageSize)
             };
             return h.response(res)
         }
@@ -114,34 +111,46 @@ export default [
             auth: false
         },
         handler: async function(request, h) {
-            var number = 1;
+            var ratePerPage = 1;
             var page = parseInt(request.params.page);
-
             var thayboi = await ThayboiModel.findById(request.params.id);
-            var rate = await RateModel.find({ id_thayboi: thayboi._id }).skip((page - 1) * number).limit(number);
-            // var result = await FollowingModel.find({ "thayboi.id_thayboi": request.payload.value }, { _id: 1 }).countDocuments();
-            var avgStar = await RateModel.aggregate([{
+            var totalPage = await RateModel.find({ id_thayboi: thayboi._id }).countDocuments();
+            var rate = await RateModel.find({ id_thayboi: thayboi._id }).skip((page - 1) * ratePerPage).limit(ratePerPage);
+            var avg = await RateModel.aggregate([{
                     $match: { id_thayboi: thayboi._id }
+                },
+
+                {
+                    $unwind: {
+                        path: "$detail",
+                        preserveNullAndEmptyArrays: true,
+                    }
                 },
                 {
                     $group: {
-                        _id: {
-                            "id_thayboi": "$id_thayboi"
-                        },
-                        totalPage: { $sum: 1 },
 
-                        star: { $push: "$star" },
+                        _id: {
+                            "id_thayboi": "$id_thayboi",
+
+                        },
+                        rate: { $push: "$detail" },
                     }
                 },
                 {
                     $project: {
-                        _id: 0,
-                        totalPage: 1,
 
-                        "avgStar": { $avg: "$star" },
+                        rates: {
+                            "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
+                            "boi_bai": { "avg": { $avg: "$rate.boi_bai" }, "total": { $size: "$rate.boi_bai" } },
+                            "xem_boi": { "avg": { $avg: "$rate.xem_boi" }, "total": { $size: "$rate.xem_boi" } },
+                            "goi_hon": { "avg": { $avg: "$rate.goi_hon" }, "total": { $size: "$rate.goi_hon" } },
+                            "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } },
+                            "total": { $size: "$rate" },
+                            // "rate": 1,
+                        }
+                    },
 
-                    }
-                }
+                },
             ]).exec()
             thayboi.set("rate", rate, { strict: false });
             for (let i = 0; i < rate.length; i++) {
@@ -156,16 +165,16 @@ export default [
 
 
             }
-            thayboi.set("avgStar", avgStar[0].avgStar, { strict: false })
+            thayboi.set("average", avg, { strict: false })
             var res = {
                 error: null,
                 data: thayboi,
                 page: page,
-                pageSize: number,
-                totalPage: avgStar[0].totalPage
+                pageSize: ratePerPage,
+                totalPage: Math.ceil(totalPage / ratePerPage),
             };
 
-            return h.response(res);
+            return h.response(res).code(200);
 
         }
 
@@ -189,31 +198,39 @@ export default [
     {
         method: "POST",
         path: "/api/v1/search",
+        options: {
+            auth: false
+        },
         handler: async function(request, h) {
 
             var result = await ThayboiModel.find({
                 $or: [
-                    { name: { $regex: request.payload.value } },
-                    { phone: { $regex: request.payload.value } }
+                    { "information.name": { $regex: request.payload.value } },
+                    { "contact.phone": { $regex: request.payload.value } }
                 ]
-            }, { _id: 1, name: 1 }).limit(5);
+            }, { _id: 1, "information.name": 1 }).limit(5);
             return h.response(result);
         }
     },
-    // //test
-    // {
-    //     method: "POST",
-    //     path: "/api/v1/test",
-    //     config: {
-    //         auth: false
-    //     },
-    //     handler: async function(request, h) {
+    //test
+    {
+        method: "POST",
+        path: "/api/v1/test",
+        config: {
+            auth: false
+        },
+        handler: async function(request, h) {
 
-    //         const user = await Account.findOne({ 'local.email': request.payload.email });
-    //         console.log(user);
-    //         return h.response(user);
-    //     }
-    // },
+            const result = await ThayboiModel.find({
+
+                "information.name": { $regex: request.payload.value },
+
+
+            }).limit(2)
+            console.log(result);
+            return h.response(result);
+        }
+    },
 
 
 ]

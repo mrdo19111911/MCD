@@ -1,20 +1,21 @@
 import mongoose from 'mongoose';
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 var Reaction = new Schema({
-    user: new Schema({
-        _id : false ,
+    user: {
+
         id_user: {
             type: Schema.Types.ObjectId
         },
         name: {
             type: String
         },
-        avatar: {
+        picture: {
             type: String
         }
-    }),
+    },
     type: {
-        type: String
+        type: Number,
+        required: true,
     },
     id_rate: {
         type: Schema.Types.ObjectId
@@ -22,12 +23,12 @@ var Reaction = new Schema({
     id_comment: {
         type: Schema.Types.ObjectId
     },
-    created_at:{
+    created_at: {
         type: Date,
         required: true,
         default: Date.now
     },
-    updated_at:{
+    updated_at: {
         type: Date,
         required: true,
         default: Date.now
@@ -36,4 +37,4 @@ var Reaction = new Schema({
 
 
 
-export default  mongoose.model('reaction', Reaction,'reaction');
+export default mongoose.model('reaction', Reaction, 'reaction');

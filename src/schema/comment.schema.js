@@ -4,7 +4,7 @@ export const commentSchema = Joi.object({
     user: {
         id_user: Joi.string().required(), // cần kiểm tra lại
         name: Joi.string().required(),
-        avatar: Joi.string()
+        picture: Joi.string()
     },
     content: Joi.string().required(),
     id_rate: Joi.string().required(),

@@ -48,7 +48,7 @@ const init = async() => {
         plugin: getDate,
         options: { format: 'DD/MM/YYYY' }
     });
-
+    await server.register(require('inert'));
     await server.register(Bell);
     await server.register(hapiJWT.default);
 
@@ -76,15 +76,15 @@ const init = async() => {
         server.route(route)
     })
     await server.start();
-    await mongoose.connect(process.env.DB_LOCALHOST, () => console.log('Okay!'))
-        // await mongoose.connect(`${dbConfigs.uri}:${dbConfigs.port}?authenticationDatatbase=admin`, dbOptions)
-        //     .then(
-        //         (connection) => {
-        //             console.log('Database connected!');
-        //             dbConnection = connection;
-        //         },
-        //         error => console.log('Connect database error: ', error)
-        //     );
+    // await mongoose.connect(process.env.DB_LOCALHOST, () => console.log('Okay!'))
+    await mongoose.connect(`${dbConfigs.uri}:${dbConfigs.port}?authenticationDatatbase=admin`, dbOptions)
+        .then(
+            (connection) => {
+                console.log('Database connected!');
+
+            },
+            error => console.log('Connect database error: ', error)
+        );
     console.log('Server running on %s', server.info.uri);
 };
 

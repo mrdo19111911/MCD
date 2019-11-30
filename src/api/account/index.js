@@ -19,6 +19,7 @@ export async function accountSignup(request, h) {
         try {
             const data = await Account.create({
                 local: {
+                    name: request.payload.name,
                     email: request.payload.email,
                     password: hash
                 },
@@ -28,7 +29,7 @@ export async function accountSignup(request, h) {
                 return h.response({
                     user: {
                         id: data._id,
-                        username: data.username,
+                        name: data.local.name,
                         email: data.local.email
                     }
                 }).code(201)
@@ -50,10 +51,11 @@ export async function accountLogin(request, h) {
         if (!isValid) {
             return (Boom.unauthorized('Invalid Password'));
         } else {
+            console.log(user);
             return ({
                 id: user._id,
-                username: user.username,
-                email: user.email
+                username: user.local.name.fullname,
+                email: user.local.email
             })
         }
     } else {

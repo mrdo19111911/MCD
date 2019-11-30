@@ -17,6 +17,7 @@ export default [
             }
         },
         options: {
+            auth: false,
             validate: {
                 payload: reactionSchema,
 

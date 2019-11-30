@@ -1,21 +1,15 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 var Account = new Schema({
-    // id: {
-    //     type: Schema.Types.ObjectId
-    // },
-    username: {
-        type: String
-    },
-    local: new Schema({
-        _id: false,
+
+    local: {
         email: {
             type: String
         },
         password: {
             type: String
         },
-        picture: new Schema({
+        picture: {
             width: {
                 type: String
             },
@@ -28,8 +22,8 @@ var Account = new Schema({
             thumbnail: {
                 type: String
             }
-        }),
-        name: new Schema({
+        },
+        name: {
             first: {
                 type: String
             },
@@ -39,8 +33,8 @@ var Account = new Schema({
             fullname: {
                 type: String
             }
-        })
-    }),
+        }
+    },
     facebook: new Schema({
         _id: false,
         "New Field": {

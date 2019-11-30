@@ -18,9 +18,9 @@ export default [
             }
         },
         options: {
-
+            auth: false,
             validate: {
-                payload: thayboiSchema,
+                //payload: thayboiSchema,
 
                 failAction: function(request, h, err) {
                     console.log(err)
@@ -41,9 +41,9 @@ export default [
             return h.response(person);
         },
         options: {
-
+            auth: false,
             validate: {
-                payload: thayboiSchema,
+                //payload: thayboiSchema,
 
                 failAction: function(request, h, err) {
                     console.log(err)

@@ -16,8 +16,9 @@ export default [
             }
         },
         options: {
+            auth: false,
             validate: {
-                payload: rateSchema,
+                // payload: rateSchema,
 
                 failAction: function(request, h, err) {
                     console.log(err)

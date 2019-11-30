@@ -17,8 +17,9 @@ export default [
             }
         },
         options: {
+            auth: false,
             validate: {
-                payload: commentSchema,
+                //payload: commentSchema,
 
                 failAction: function(request, h, err) {
                     console.log(err)
@@ -37,8 +38,10 @@ export default [
             return h.response(comment);
         },
         options: {
+            auth: false,
             validate: {
-                payload: commentSchema,
+
+                //payload: commentSchema,
 
                 failAction: function(request, h, err) {
                     console.log(err)

@@ -1,0 +1,246 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _comment = require('../../models/comment.model');
+
+var _comment2 = _interopRequireDefault(_comment);
+
+var _comment3 = require('../../schema/comment.schema');
+
+var _rate = require('../../models/rate.model');
+
+var _rate2 = _interopRequireDefault(_rate);
+
+var _rate3 = require('../../schema/rate.schema');
+
+var _reaction = require('../../models/reaction.model');
+
+var _reaction2 = _interopRequireDefault(_reaction);
+
+var _reaction3 = require('../../schema/reaction.schema');
+
+var _thayboi = require('../../models/thayboi.model');
+
+var _thayboi2 = _interopRequireDefault(_thayboi);
+
+var _report = require('../../models/report.model');
+
+var _report2 = _interopRequireDefault(_report);
+
+var _report3 = require('../../schema/report.schema');
+
+var _following = require('../../models/following.model');
+
+var _following2 = _interopRequireDefault(_following);
+
+var _following3 = require('../../schema/following.schema');
+
+var _account = require('../../models/account.model');
+
+var _account2 = _interopRequireDefault(_account);
+
+var _joi = require('@hapi/joi');
+
+var _joi2 = _interopRequireDefault(_joi);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+exports.default = [
+//list-thayboi
+{
+    method: "GET",
+    path: "/api/v1/list/field={field}&sort={value}&page={page}",
+    config: {
+        auth: false
+    },
+    handler: async function handler(request, h) {
+        var _$sort;
+
+        var pageSize = 2;
+        var key = 'rates.' + request.params.field;
+        var value = request.params.value == "good" ? -1 : 1;
+        var total = await _thayboi2.default.find().countDocuments();
+        var list = await _thayboi2.default.aggregate([{
+            $lookup: {
+                from: "rate",
+                localField: "_id",
+                foreignField: "id_thayboi",
+                as: "rate"
+            }
+
+        }, {
+            $unwind: {
+                path: "$rate",
+                preserveNullAndEmptyArrays: true
+
+            }
+        }, {
+            $unwind: {
+                path: "$rate.detail",
+                preserveNullAndEmptyArrays: true
+
+            }
+        }, {
+            $group: {
+                _id: {
+                    "_id": "$_id",
+                    "information": "$information"
+                },
+                rate: { $push: "$rate.detail" }
+
+            }
+        }, {
+            $project: {
+                rates: {
+                    "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
+                    "boi_bai": { "avg": { $avg: "$rate.boi_bai" }, "total": { $size: "$rate.boi_bai" } },
+                    "xem_boi": { "avg": { $avg: "$rate.xem_boi" }, "total": { $size: "$rate.xem_boi" } },
+                    "goi_hon": { "avg": { $avg: "$rate.goi_hon" }, "total": { $size: "$rate.goi_hon" } },
+                    "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } },
+                    "total": { $size: "$rate" }
+                    // "rate": 1,
+                }
+            }
+
+        }, {
+            $sort: (_$sort = {}, _defineProperty(_$sort, key, value), _defineProperty(_$sort, 'posts', 1), _$sort)
+        }, { $skip: 0 }, // dữ liệu trả về ở get vá post là string nhưng trong tùy thành phần trong aggregate nhần string or number
+        { $limit: pageSize }]).exec();
+        var data = list.map(function (obj) {
+            var tempObj = {};
+            tempObj.thayboi = obj._id;
+            tempObj.rate = obj.rates;
+            return tempObj;
+        });
+
+        var res = {
+            error: null,
+            data: data,
+            page: parseInt(request.params.page),
+            pageSize: pageSize,
+            totalPage: Math.ceil(total / pageSize)
+        };
+        return h.response(res);
+    }
+},
+// detail 
+{
+    method: "GET",
+    path: "/api/v1/thayboi={id}&page={page}",
+    config: {
+        auth: false
+    },
+    handler: async function handler(request, h) {
+        var ratePerPage = 1;
+        var page = parseInt(request.params.page);
+        var thayboi = await _thayboi2.default.findById(request.params.id);
+        var totalPage = await _rate2.default.find({ id_thayboi: thayboi._id }).countDocuments();
+        var rate = await _rate2.default.find({ id_thayboi: thayboi._id }).skip((page - 1) * ratePerPage).limit(ratePerPage);
+        var avg = await _rate2.default.aggregate([{
+            $match: { id_thayboi: thayboi._id }
+        }, {
+            $unwind: {
+                path: "$detail",
+                preserveNullAndEmptyArrays: true
+            }
+        }, {
+            $group: {
+
+                _id: {
+                    "id_thayboi": "$id_thayboi"
+
+                },
+                rate: { $push: "$detail" }
+            }
+        }, {
+            $project: {
+
+                rates: {
+                    "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
+                    "boi_bai": { "avg": { $avg: "$rate.boi_bai" }, "total": { $size: "$rate.boi_bai" } },
+                    "xem_boi": { "avg": { $avg: "$rate.xem_boi" }, "total": { $size: "$rate.xem_boi" } },
+                    "goi_hon": { "avg": { $avg: "$rate.goi_hon" }, "total": { $size: "$rate.goi_hon" } },
+                    "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } },
+                    "total": { $size: "$rate" }
+                    // "rate": 1,
+                }
+            }
+
+        }]).exec();
+        thayboi.set("rate", rate, { strict: false });
+        for (var i = 0; i < rate.length; i++) {
+            var comment = await _comment2.default.find({ id_rate: rate[i]._id });
+            for (var j = 0; j < comment.length; j++) {
+                var reaction = await _reaction2.default.find({ id_comment: comment[j]._id }, { _id: 1, type: 1 });
+                comment[j].set('reaction', reaction, { strict: false });
+            }
+            var reaction = await _reaction2.default.find({ id_rate: rate[i]._id }, { _id: 1, type: 1 });
+            rate[i].set('comment', comment, { strict: false });
+            rate[i].set('reaction', reaction, { strict: false });
+        }
+        thayboi.set("average", avg, { strict: false });
+        var res = {
+            error: null,
+            data: thayboi,
+            page: page,
+            pageSize: ratePerPage,
+            totalPage: Math.ceil(totalPage / ratePerPage)
+        };
+
+        return h.response(res).code(200);
+    }
+
+},
+// newest rate
+{
+    method: "GET",
+    path: "/api/v1/rate/recent",
+    handler: async function handler(request, h) {
+        var rate = await _rate2.default.find({}).sort({ created_at: -1 }).limit(5);
+        var res = {
+            error: null,
+            data: rate,
+            size: 5
+
+        };
+        return h.response(res);
+    }
+},
+// search 
+{
+    method: "POST",
+    path: "/api/v1/search",
+    options: {
+        auth: false
+    },
+    handler: async function handler(request, h) {
+
+        var result = await _thayboi2.default.find({
+            $or: [{ "information.name": { $regex: request.payload.value } }, { "contact.phone": { $regex: request.payload.value } }]
+        }, { _id: 1, "information.name": 1 }).limit(5);
+        return h.response(result);
+    }
+},
+//test
+{
+    method: "POST",
+    path: "/api/v1/test",
+    config: {
+        auth: false
+    },
+    handler: async function handler(request, h) {
+
+        var result = await _thayboi2.default.find({
+
+            "information.name": { $regex: request.payload.value }
+
+        }).limit(2);
+        console.log(result);
+        return h.response(result);
+    }
+}];

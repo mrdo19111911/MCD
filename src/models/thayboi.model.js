@@ -1,60 +1,79 @@
 import mongoose from 'mongoose';
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 var Thayboi = new Schema({
     // _id: {
     //     type: Schema.Types.ObjectId
     // },
-    name: {
-        type: String,
-        required: true
-    },
-    address: {
-        type: Array
-    },
-    date_of_birth : {
-        type : String
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    gender: {
-        type: Number
-    },
-    avatar: {
-        type: String
-    },
-    skill : {
-        type : String
-    },
-    exp : {
-        type : String
-    },
-    degree : {
-        type : String
-    },
-    media : new Schema({
-        _id : false,
-        youtube : {
-            type : String
+    information: {
+        name: {
+            type: String,
         },
-        website : {
-            type : String
+        picture: {
+            type: String,
+        },
+        gender: {
+            type: Number,
+        },
+        date_of_birth: {
+            type: String,
+        },
+        degree: {
+            type: Array,
+        },
+        skill: {
+            type: Array,
+        },
+        introduction: {
+            type: String,
         }
-    }),
-    verification : {
-        type : Boolean
-    },  
-    created_at:{
+    },
+    contact: {
+        work_address: {
+            type: Array
+        },
+        home_address: {
+            type: Array
+        },
+        media: {
+            youtube: {
+                type: String
+            },
+            website: {
+                type: String
+            },
+            facebook: {
+                type: String
+            }
+        },
+        schedule: {
+            open: {
+                type: String
+            },
+            close: {
+                type: String
+            }
+        },
+        fee: {
+            type: Array
+        },
+        phone: {
+            type: Array
+        },
+
+    },
+    verification: {
+        type: Boolean
+    },
+    created_at: {
         type: Date,
         required: true,
         default: Date.now
     },
-    updated_at:{
+    updated_at: {
         type: Date,
         required: true,
         default: Date.now
     },
 });
 
-  export default  mongoose.model('thayboi', Thayboi,'thayboi');
+export default mongoose.model('thayboi', Thayboi, 'thayboi');
