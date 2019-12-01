@@ -1,41 +1,72 @@
 @import "../../../settings/config.less";
 //HEADER
-.search{
-    display: flex;
-    align-items: center;
+.search {
+  display: flex;
+  align-items: center;
 }
-.ant-input{
-    background:@herder-input-search-background;
+.ant-input {
+  background: @herder-input-search-background;
 }
-.ant-input-search-button{
-    
+.ant-input-search-button {
 }
-.headerMenu{
-    background: #ff0000;
-    border: none;
-    color: #fff;
+.headerMenu {
+  background: #ff0000;
+  border: none;
+  color: #fff;
 }
-.notification{
-    display: flex;
-    justify-content: space-between;
+.notification {
+  display: flex;
+  justify-content: space-between;
 }
-.subheader{
-    line-height: 0;
+.subheader {
+  line-height: 0;
 }
 
-.ant-layout-footer{
-   padding: 25px 0 0;
-    .rowFooter{
-        padding: 10px;
-        text-align: justify;
-    }
-    .footer{
-        height: 100%;
-        align-items: flex-end;
-        background: #232f3e;
-        color: #fff;
-    }
-    h3{
-        color: #fff;
-    }
+.ant-layout-footer {
+  padding: 25px 0 0;
+  .rowFooter {
+    padding: 10px;
+    text-align: justify;
+  }
+  .footer {
+    height: 100%;
+    align-items: flex-end;
+    background: #232f3e;
+    color: #fff;
+  }
+  h3 {
+    color: #fff;
+  }
+}
+//Modal
+.loginFacebook {
+  background: #13227a;
+  color: #fff;
+  width: 100%;
+  a {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.loginFacebook:hover {
+  background: #13227a;
+  color: #fff;
+  border-color: #13227a;
+}
+
+.loginGoogle {
+  background: #d81e06;
+  color: #fff;
+  width: 100%;
+  a {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.loginGoogle:hover {
+  background: #d81e06;
+  color: #fff;
+  border-color: #d81e06;
 }

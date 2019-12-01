@@ -4,6 +4,7 @@ import { Row, Col, Input, AutoComplete, Button, Icon } from "antd";
 import SubHeader from "./SubHeader";
 import SubHeaderTopSearch from "./SubHeaderTopSearch";
 import "./style/index.less";
+
 class Headers extends Component {
   render() {
     return (
@@ -34,5 +35,4 @@ class Headers extends Component {
     );
   }
 }
-
 export default Headers;

@@ -8,24 +8,24 @@ class SubHeaderTopSearch extends Component {
       <Row type="flex">
         <Col md={4}></Col>
         <Col md={12} className="subheader">
-          <Link>
-            <Button type="link" ghost style={{paddingLeft:0}}>
+          <Link to="tu-vi">
+            <Button type="link" ghost style={{ paddingLeft: 0 }}>
               Tử Vi
             </Button>
           </Link>
-          <Link>
+          <Link to="xem-boi">
             <Button type="link" ghost>
               Xem Bói
             </Button>
           </Link>
-          <Link>
+          <Link to="phong-thuy">
             <Button type="link" ghost>
-             Phong Thủy
+              Phong Thủy
             </Button>
           </Link>
-          <Link>
+          <Link to="tu-tru">
             <Button type="link" ghost>
-             Tứ Trụ
+              Tứ Trụ
             </Button>
           </Link>
         </Col>

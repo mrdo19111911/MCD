@@ -12,7 +12,7 @@ moment.locale("zh-cn");
 function App() {
   return (
     <ConfigProvider locale={vi_VN}>
-      <IntlProvider locale='en'>
+      <IntlProvider locale="en">
         <Provider store={store}>
           <Routes />
         </Provider>
