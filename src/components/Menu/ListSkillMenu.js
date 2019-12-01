@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
-import { Menu } from "antd";
+import { Menu, Row } from "antd";
 import { Link } from "react-router-dom";
 import { MenuItem } from "rc-menu";
 class ListSkillMenu extends Component {
@@ -8,6 +8,7 @@ class ListSkillMenu extends Component {
     return (
       <div style={{ background: "#fff" }}>
         <h3 className="famousTitle"> Danh mục chuyên môn của các thầy</h3>
+        <Row>
         <Menu mode="horizontal vertical-left">
           <Menu.Item>
             <Link to="/">Hầu Đồng</Link>
@@ -49,6 +50,8 @@ class ListSkillMenu extends Component {
             <Link to="/">Cúng Bái</Link>
           </Menu.Item>
         </Menu>
+        </Row>
+        <Row>
         <Menu mode='horizontal'>
           <MenuItem>
             <Link to="/">Bói Tarot</Link>
@@ -57,6 +60,7 @@ class ListSkillMenu extends Component {
             <Link to="/">Các Môn Khác</Link>
           </MenuItem>
         </Menu>
+        </Row>
       </div>
     );
   }

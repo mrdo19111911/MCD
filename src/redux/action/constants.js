@@ -1,3 +1,4 @@
+
 /// SEARCH
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const CHANGE_SEARCH_INPUT = "CHANGE_SEARCH_INPUT";

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import { Col, Popover, Button, Row } from "antd";
+import Login from "../Modal/Login";
+import Register from "../Modal/Register";
 class SubHeader extends Component {
   render() {
     return (
@@ -37,6 +39,8 @@ class SubHeader extends Component {
               Đăng Nhập
             </Button>
           </Link>
+          <Login />
+          <Register />
         </Col>
       </Row>
     );

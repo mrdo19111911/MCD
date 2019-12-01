@@ -6,8 +6,14 @@ const webpack = require('webpack');
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "dist"),
     filename: "main.js",
+  },
+  devtool:'eval',
+  optimization:{
+    splitChunks:{
+      chunks:'all'
+    }
   },
   module: {
     rules: [
@@ -84,8 +90,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname,'public/index.html'),
-      filename:'index.html'
+      template: path.resolve(__dirname,'./public/index.html'),
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css'

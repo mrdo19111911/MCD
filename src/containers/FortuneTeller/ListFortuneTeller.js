@@ -95,8 +95,8 @@ class ListFortuneTeller extends Component {
       var resulut = null;
       resulut = item.map((value, key) => {
         return (
-          <div className="fortunLocation">
-            <Link to={`${value}`} key={key}>
+          <div className="fortunLocation" key={key}>
+            <Link to={`${value}`}>
               Thầy Bói Tại {value}
             </Link>
           </div>
