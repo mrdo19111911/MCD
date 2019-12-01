@@ -70,7 +70,7 @@ class FamousFortuneTellerMonth extends Component {
                     </div>
                     <div style={{ textAlign: "end", marginTop: 8 }}>
                       <Tag color="purple">
-                        <Link to="/" title="Xem Thêm">
+                        <Link to="/rate-fortune-teller/1" title="Xem Thêm">
                           Xem Thêm
                         </Link>
                       </Tag>
