@@ -4,7 +4,7 @@ import { Row, Col, List, Typography, Icon } from "antd";
 class NewsHot extends Component {
   render() {
     const MyIcon = Icon.createFromIconfontCN({
-      scriptUrl: "//at.alicdn.com/t/font_1518635_rfxmnfufdqa.js"
+      scriptUrl: "//at.alicdn.com/t/font_1518635_dhliinczm3f.js"
     });
     const data = [
       "Racing car sprays burning fuel into crowd.",

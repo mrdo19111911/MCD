@@ -66,7 +66,7 @@ class SubHeader extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const MyIcon = Icon.createFromIconfontCN({
-      scriptUrl: "//at.alicdn.com/t/font_1518635_eww5a8a92zm.js"
+      scriptUrl: "//at.alicdn.com/t/font_1518635_dhliinczm3f.js"
     });
     return (
       <Row type="flex" justify="end">
@@ -102,6 +102,7 @@ class SubHeader extends Component {
           <Button type="link" ghost onClick={this.showModalLogin}>
             Đăng Nhập
           </Button>
+          {/* Modal đăng nhập */}
           <Modal
             title="Đăng Nhập"
             footer={
