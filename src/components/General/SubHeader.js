@@ -1,34 +1,48 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
-import { Col, Popover, Button, Row, Modal, Form, Icon, Input } from "antd";
+import {
+  Col,
+  Popover,
+  Button,
+  Row,
+  Modal,
+  Form,
+  Icon,
+  Input,
+  Checkbox
+} from "antd";
 class SubHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      visible1: false,
+      login: false,
+      register: false,
       popover: false
     };
   }
   showModalLogin = () => {
     this.setState({
       visible: false,
-      visible1: true,
+      login: true,
+      register: false,
       popover: false
     });
   };
   showModalRegister = () => {
     this.setState({
       visible: false,
-      visible1: true,
+      login: false,
+      register: true,
       popover: false
     });
   };
   handleCancel = e => {
     console.log(e);
     this.setState({
-      visible1: false
+      login: false,
+      register: false
     });
   };
 
@@ -90,8 +104,43 @@ class SubHeader extends Component {
           </Button>
           <Modal
             title="Đăng Nhập"
-            footer={null}
-            visible={this.state.visible1}
+            footer={
+              <div>
+                <Row type="flex" align="middle">
+                  <Col md={14} style={{ textAlign: "left" }}></Col>
+                  <Col md={10}>
+                    <Row type="flex" justify="end">
+                      <Col md={12}>
+                        <Button type="primary">
+                          <Link to="/google">
+                            <span>Đăng Nhập</span>
+                          </Link>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row gutter={[{ md: 10 }]} style={{ marginTop: 10 }}>
+                  <Col md={12}>
+                    <Button className="loginFacebook">
+                      <Link to="/facebook">
+                        <MyIcon type="icon-facebook" />
+                        <span>Facebook</span>
+                      </Link>
+                    </Button>
+                  </Col>
+                  <Col md={12}>
+                    <Button className="loginGoogle">
+                      <Link to="/google">
+                        <MyIcon type="icon-googleplus" />
+                        <span>Google</span>
+                      </Link>
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+            }
+            visible={this.state.login}
             onCancel={this.handleCancel}
           >
             <Form layout="vertical">
@@ -125,32 +174,50 @@ class SubHeader extends Component {
                   />
                 )}
               </Form.Item>
-
-              <Row gutter={[{ md: 10 }]}>
-                <Col md={12}>
-                  <Button size="large" className="loginFacebook">
-                    <Link to="/facebook">
-                      <MyIcon type="icon-facebook" />
-                      <span>Facebook</span>
-                    </Link>
-                  </Button>
-                </Col>
-                <Col md={12}>
-                  <Button size="large" className="loginGoogle">
-                    <Link to="/google">
-                      <MyIcon type="icon-googleplus" />
-                      <span>Google</span>
-                    </Link>
-                  </Button>
-                </Col>
-              </Row>
             </Form>
           </Modal>
           {/* Modal đăng kí */}
           <Modal
             title="Đăng Ký"
-            footer={null}
-            visible={this.state.visible1}
+            footer={
+              <div>
+                <Row type="flex" align="middle">
+                  <Col md={14} style={{ textAlign: "left" }}>
+                    <Checkbox>Tôi đồng ý với điều khoản sử dụng</Checkbox>
+                  </Col>
+                  <Col md={10}>
+                    <Row type="flex" justify="end">
+                      <Col md={12}>
+                        <Button type="primary">
+                          <Link to="/google">
+                            <span>Đăng Ký</span>
+                          </Link>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row gutter={[{ md: 10 }]} style={{ marginTop: 10 }}>
+                  <Col md={12}>
+                    <Button className="loginFacebook">
+                      <Link to="/facebook">
+                        <MyIcon type="icon-facebook" />
+                        <span>Facebook</span>
+                      </Link>
+                    </Button>
+                  </Col>
+                  <Col md={12}>
+                    <Button className="loginGoogle">
+                      <Link to="/google">
+                        <MyIcon type="icon-googleplus" />
+                        <span>Google</span>
+                      </Link>
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+            }
+            visible={this.state.register}
             onCancel={this.handleCancel}
           >
             <Form layout="vertical">
@@ -217,24 +284,6 @@ class SubHeader extends Component {
                   />
                 )}
               </Form.Item>
-              <Row gutter={[{ md: 10 }]}>
-                <Col md={12}>
-                  <Button size="large" className="loginFacebook">
-                    <Link to="/facebook">
-                      <MyIcon type="icon-facebook" />
-                      <span>Facebook</span>
-                    </Link>
-                  </Button>
-                </Col>
-                <Col md={12}>
-                  <Button size="large" className="loginGoogle">
-                    <Link to="/google">
-                      <MyIcon type="icon-googleplus" />
-                      <span>Google</span>
-                    </Link>
-                  </Button>
-                </Col>
-              </Row>
             </Form>
           </Modal>
         </Col>
