@@ -26,6 +26,7 @@ export default [
             auth: false
         },
         handler: async function(request, h) {
+            var page = parseInt(request.params.page);
             var pageSize = 2;
             var key = `rates.${request.params.field}`;
             var value = (request.params.value == "good") ? -1 : 1;
@@ -66,13 +67,21 @@ export default [
                 {
                     $project: {
                         rates: {
-                            "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
-                            "boi_bai": { "avg": { $avg: "$rate.boi_bai" }, "total": { $size: "$rate.boi_bai" } },
-                            "xem_boi": { "avg": { $avg: "$rate.xem_boi" }, "total": { $size: "$rate.xem_boi" } },
-                            "goi_hon": { "avg": { $avg: "$rate.goi_hon" }, "total": { $size: "$rate.goi_hon" } },
+                            "hau_dong": { "avg": { $avg: "$rate.hau_dong" }, "total": { $size: "$rate.hau_dong" } },
+                            "soi_can": { "avg": { $avg: "$rate.soi_can" }, "total": { $size: "$rate.soi_can" } },
+                            "tu_vi": { "avg": { $avg: "$rate.tu_vi" }, "total": { $size: "$rate.tu_vi" } },
                             "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } },
+                            "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
+                            "bai_tay": { "avg": { $avg: "$rate.bai_tay" }, "total": { $size: "$rate.bai_tay" } },
+                            "phong_thuy": { "avg": { $avg: "$rate.phong_thuy" }, "total": { $size: "$rate.phong_thuy" } },
+                            "ngay_tot": { "avg": { $avg: "$rate.ngay_tot" }, "total": { $size: "$rate.ngay_tot" } },
+                            "tam_thuc": { "avg": { $avg: "$rate.tam_thuc" }, "total": { $size: "$rate.tam_thuc" } },
+                            "xem_tuong": { "avg": { $avg: "$rate.xem_tuong" }, "total": { $size: "$rate.xem_tuong" } },
+                            "tam_linh": { "avg": { $avg: "$rate.tam_linh" }, "total": { $size: "$rate.tam_linh" } },
+                            "cung_bai": { "avg": { $avg: "$rate.cung_bai" }, "total": { $size: "$rate.cung_bai" } },
+                            "tarot": { "avg": { $avg: "$rate.tarot" }, "total": { $size: "$rate.tarot" } },
                             "total": { $size: "$rate" },
-                            // "rate": 1,
+
                         }
                     },
 
@@ -83,7 +92,7 @@ export default [
                         posts: 1
                     }
                 },
-                { $skip: 0 }, // dữ liệu trả về ở get vá post là string nhưng trong tùy thành phần trong aggregate nhần string or number
+                { $skip: (page - 1) * pageSize }, // dữ liệu trả về ở get vá post là string nhưng trong tùy thành phần trong aggregate nhần string or number
                 { $limit: pageSize },
             ]).exec();
             var data = list.map(obj => {
@@ -96,7 +105,7 @@ export default [
             var res = {
                 error: null,
                 data: data,
-                page: parseInt(request.params.page),
+                page: page,
                 pageSize: pageSize,
                 totalPage: Math.ceil(total / pageSize)
             };

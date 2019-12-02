@@ -6,7 +6,7 @@ export const commentSchema = Joi.object({
         name: Joi.string().required(),
         picture: Joi.string()
     },
-    content: Joi.string().required(),
+    content: Joi.string().max(500).required(),
     id_rate: Joi.string().required(),
     created_at: Joi.string().required(),
     updated_at: Joi.string().required()

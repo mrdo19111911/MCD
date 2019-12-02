@@ -8,7 +8,7 @@ export const rateSchema = Joi.object({
         picture: Joi.string()
     },
     content: Joi.string().required(),
-    star: Joi.number().min(1).max(5).required(),
+    detail: Joi.array(),
     id_thayboi: Joi.string().required(),
     created_at: Joi.string().required(),
     updated_at: Joi.string().required()
