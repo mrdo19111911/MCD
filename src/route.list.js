@@ -7,6 +7,7 @@ import getAll from './api/user/getall.router';
 import userRoute from './api/account/route.user';
 import imageRoute from './api/user/image.router';
 import filterRoute from './api/user/filter.router';
+import detailThayBoi from './api/user/detail.router';
 export const routeList = [
     // userRouter,
     thayboiRouter,
@@ -17,5 +18,6 @@ export const routeList = [
     getAll,
     userRoute,
     imageRoute,
-    filterRoute
+    filterRoute,
+    detailThayBoi
 ]

@@ -1,21 +1,4 @@
-import CommentModel from '../../models/comment.model';
-import { commentSchema } from '../../schema/comment.schema';
-
-import RateModel from '../../models/rate.model';
-import { rateSchema } from '../../schema/rate.schema';
-
-import ReactionModel from '../../models/reaction.model';
-import { reactionSchema } from '../../schema/reaction.schema';
-
 import ThayboiModel from '../../models/thayboi.model';
-
-import ReportModel from '../../models/report.model';
-import { reportSchema } from '../../schema/report.schema';
-
-import FollowingModel from '../../models/following.model';
-import { followingSchema } from '../../schema/following.schema';
-
-
 export async function filterThayBoi(field, min, max, page, h) {
     var pageSize = 2;
 

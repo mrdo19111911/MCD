@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -8,39 +8,9 @@ exports.filterSchedule = filterSchedule;
 exports.filterGender = filterGender;
 exports.filterLocation = filterLocation;
 
-var _comment = require('../../models/comment.model');
-
-var _comment2 = _interopRequireDefault(_comment);
-
-var _comment3 = require('../../schema/comment.schema');
-
-var _rate = require('../../models/rate.model');
-
-var _rate2 = _interopRequireDefault(_rate);
-
-var _rate3 = require('../../schema/rate.schema');
-
-var _reaction = require('../../models/reaction.model');
-
-var _reaction2 = _interopRequireDefault(_reaction);
-
-var _reaction3 = require('../../schema/reaction.schema');
-
-var _thayboi = require('../../models/thayboi.model');
+var _thayboi = require("../../models/thayboi.model");
 
 var _thayboi2 = _interopRequireDefault(_thayboi);
-
-var _report = require('../../models/report.model');
-
-var _report2 = _interopRequireDefault(_report);
-
-var _report3 = require('../../schema/report.schema');
-
-var _following = require('../../models/following.model');
-
-var _following2 = _interopRequireDefault(_following);
-
-var _following3 = require('../../schema/following.schema');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

@@ -41,8 +41,12 @@ var _filter = require('./api/user/filter.router');
 
 var _filter2 = _interopRequireDefault(_filter);
 
+var _detail = require('./api/user/detail.router');
+
+var _detail2 = _interopRequireDefault(_detail);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routeList = exports.routeList = [
 // userRouter,
-_thayboi2.default, _rate2.default, _comment2.default, _reaction2.default, _following2.default, _getall2.default, _route2.default, _image2.default, _filter2.default];
+_thayboi2.default, _rate2.default, _comment2.default, _reaction2.default, _following2.default, _getall2.default, _route2.default, _image2.default, _filter2.default, _detail2.default];

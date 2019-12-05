@@ -19,7 +19,7 @@ var rateSchema = exports.rateSchema = _joi2.default.object({
         picture: _joi2.default.string()
     },
     content: _joi2.default.string().required(),
-    star: _joi2.default.number().min(1).max(5).required(),
+    detail: _joi2.default.array(),
     id_thayboi: _joi2.default.string().required(),
     created_at: _joi2.default.string().required(),
     updated_at: _joi2.default.string().required()

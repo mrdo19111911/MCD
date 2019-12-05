@@ -59,17 +59,6 @@ exports.default = [
         var region = request.params.region;
         var page = parseInt(request.params.page);
         return (0, _index.filterLocation)({ ward: ward, district: district, province: province, region: region }, page, h);
-        // console.log(ward);
-        // var data = await ThayboiModel.find({
-        //     $or: [
-        //         { "contact.work_address.raw.ward": ward },
-        //         { "contact.work_address.raw.district": district },
-        //         { "contact.work_address.raw.province": province },
-        //         { "contact.work_address.raw.region": region },
-        //     ]
-
-        // })
-        // return h.response(data)
     },
     options: {
         auth: false

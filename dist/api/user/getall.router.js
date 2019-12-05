@@ -46,9 +46,20 @@ var _joi = require('@hapi/joi');
 
 var _joi2 = _interopRequireDefault(_joi);
 
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var distance = require('google-distance-matrix');
+
+distance.key('AIzaSyDR6CP1k0cBxaN6u2CthozxPZV0sbi3ewA');
+distance.units('metric');
+
+var Promise = require('promise');
 
 exports.default = [
 //list-thayboi
@@ -169,19 +180,12 @@ exports.default = [
         }, {
             $project: {
 
-                rates: {
-                    "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } },
-                    "boi_bai": { "avg": { $avg: "$rate.boi_bai" }, "total": { $size: "$rate.boi_bai" } },
-                    "xem_boi": { "avg": { $avg: "$rate.xem_boi" }, "total": { $size: "$rate.xem_boi" } },
-                    "goi_hon": { "avg": { $avg: "$rate.goi_hon" }, "total": { $size: "$rate.goi_hon" } },
-                    "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } },
-                    "total": { $size: "$rate" }
-                    // "rate": 1,
-                }
+                rates: [{ "hau_dong": { "avg": { $avg: "$rate.hau_dong" }, "total": { $size: "$rate.hau_dong" } } }, { "soi_can": { "avg": { $avg: "$rate.soi_can" }, "total": { $size: "$rate.soi_can" } } }, { "tu_vi": { "avg": { $avg: "$rate.tu_vi" }, "total": { $size: "$rate.tu_vi" } } }, { "chiem_tinh": { "avg": { $avg: "$rate.chiem_tinh" }, "total": { $size: "$rate.chiem_tinh" } } }, { "que_dich": { "avg": { $avg: "$rate.que_dich" }, "total": { $size: "$rate.que_dich" } } }, { "bai_tay": { "avg": { $avg: "$rate.bai_tay" }, "total": { $size: "$rate.bai_tay" } } }, { "phong_thuy": { "avg": { $avg: "$rate.phong_thuy" }, "total": { $size: "$rate.phong_thuy" } } }, { "ngay_tot": { "avg": { $avg: "$rate.ngay_tot" }, "total": { $size: "$rate.ngay_tot" } } }, { "tam_thuc": { "avg": { $avg: "$rate.tam_thuc" }, "total": { $size: "$rate.tam_thuc" } } }, { "xem_tuong": { "avg": { $avg: "$rate.xem_tuong" }, "total": { $size: "$rate.xem_tuong" } } }, { "tam_linh": { "avg": { $avg: "$rate.tam_linh" }, "total": { $size: "$rate.tam_linh" } } }, { "cung_bai": { "avg": { $avg: "$rate.cung_bai" }, "total": { $size: "$rate.cung_bai" } } }, { "tarot": { "avg": { $avg: "$rate.tarot" }, "total": { $size: "$rate.tarot" } } }, { "total": { $size: "$rate" } }]
             }
 
         }]).exec();
         thayboi.set("rate", rate, { strict: false });
+
         for (var i = 0; i < rate.length; i++) {
             var comment = await _comment2.default.find({ id_rate: rate[i]._id });
             for (var j = 0; j < comment.length; j++) {
@@ -237,19 +241,74 @@ exports.default = [
 },
 //test
 {
-    method: "POST",
-    path: "/api/v1/test",
+    method: "GET",
+    path: "/api/v1/test/origin={origin}&distance={distance}",
     config: {
         auth: false
     },
     handler: async function handler(request, h) {
-
-        var result = await _thayboi2.default.find({
-
-            "information.name": { $regex: request.payload.value }
-
-        }).limit(2);
-        console.log(result);
-        return h.response(result);
+        var origins = [];
+        origins.push(request.params.origin);
+        var destinations = [];
+        var khoang_cach = parseInt(request.params.distance);
+        var thayboi = await _thayboi2.default.find({}, { "_id": 1, "contact.work_address.raw.ggmap": 1 });
+        thayboi.map(function (val) {
+            val.contact.work_address.map(function (valRaw) {
+                return destinations.push(valRaw.raw.ggmap);
+            });
+        });
+        var data = await getMetrixDist(origins, destinations, khoang_cach);
+        data.map(function (val) {
+            return val._id = thayboi[val._id]._id;
+        });
+        var res = {
+            error: null,
+            data: data
+        };
+        return h.response(res);
     }
 }];
+
+
+function getMetrixDist(origins, destinations, khoang_cach) {
+    return new Promise(function (resolve, reject) {
+        var data = [];
+        distance.matrix(origins, destinations, function (err, distances) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            if (!distances) {
+                console.log('no distances');
+                reject('no distances');
+            }
+            if (distances.status == 'OK') {
+
+                for (var i = 0; i < origins.length; i++) {
+                    for (var j = 0; j < destinations.length; j++) {
+                        var origin = distances.origin_addresses[i];
+                        var destination = distances.destination_addresses[j];
+                        if (distances.rows[0].elements[j].status == 'OK') {
+                            var distance = distances.rows[i].elements[j].distance.text;
+                            //console.log('Distance from ' + origin + ' to ' + destination + ' is ' + distance);                   
+                            if (parseInt(distance.replace(",", "")) < khoang_cach) {
+                                data.push({
+                                    _id: j,
+                                    longLat: destinations[j],
+                                    origin: origin,
+                                    destinations: destination,
+                                    distance: distance
+                                });
+                            }
+                        } else {
+                            console.log(destination + ' is not reachable by land from ' + origin);
+                        }
+                    }
+                }
+                resolve(data);
+            } else {
+                reject('clgt');
+            }
+        });
+    });
+}

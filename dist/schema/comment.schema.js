@@ -18,7 +18,7 @@ var commentSchema = exports.commentSchema = _joi2.default.object({
         name: _joi2.default.string().required(),
         picture: _joi2.default.string()
     },
-    content: _joi2.default.string().required(),
+    content: _joi2.default.string().max(500).required(),
     id_rate: _joi2.default.string().required(),
     created_at: _joi2.default.string().required(),
     updated_at: _joi2.default.string().required()
