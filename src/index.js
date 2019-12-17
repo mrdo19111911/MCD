@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import Bell from '@hapi/bell';
 import * as hapiJWT from 'hapi-auth-jwt2';
 import { routeList } from './route.list';
-import { secretKey } from './config';
+import { secretKey, dbConfigs } from './config';
 import { verifyUser } from './api/user/verifyUser';
 import Account from './models/user.model';
 const getDate = {
@@ -16,7 +16,23 @@ const getDate = {
         server.decorate('toolkit', 'getDate', currentDate);
     }
 }
-
+const dbOptions = {
+    user: dbConfigs.username,
+    pass: dbConfigs.password,
+    dbName: dbConfigs.dbName,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    autoIndex: true,
+    reconnectTries: 10,
+    reconnectInterval: 2000,
+    poolSize: 10,
+    bufferMaxEntries: 0,
+    connectTimeoutMS: 10000,
+    socketTimeoutMS: 10000,
+    family: 4,
+    useUnifiedTopology: true
+};
 const init = async() => {
     const server = Hapi.server({
         port: 3000,
@@ -79,7 +95,21 @@ const init = async() => {
         server.route(route)
     })
     await server.start();
-    await mongoose.connect("mongodb://localhost:27017/account", () => console.log('Okay!'));
+    // await mongoose.connect("mongodb://localhost:27017/account").then(
+    //     (connection) => {
+    //         console.log('Database connected!');
+
+    //     },
+    //     error => console.log('Connect database error: ', error)
+    // );
+    await mongoose.connect(`${dbConfigs.uri}:${dbConfigs.port}?authenticationDatatbase=admin`, dbOptions)
+        .then(
+            (connection) => {
+                console.log('Database connected!');
+                // dbConnection = connection;
+            },
+            error => console.log('Connect database error: ', error)
+        );
     console.log('Server running on %s', server.info.uri);
 }
 

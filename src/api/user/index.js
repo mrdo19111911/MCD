@@ -1,6 +1,6 @@
 import Account from '../../models/user.model';
 import Bcrypt from 'bcryptjs';
-
+import Boom from '@hapi/boom';
 export async function accountSignup(request, h) {
     const account = await Account.findOne({
         "local.email": request.payload.email
